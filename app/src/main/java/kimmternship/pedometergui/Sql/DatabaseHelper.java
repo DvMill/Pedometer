@@ -43,7 +43,6 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = user.KEY_name + " = ?" + " AND " + user.KEY_password + " =?";
         String[] selectionArgs = { incuserlogin, incpasswordlogin };
-
         Cursor cursor = db.query(user.TABLE,
                 columns,
                 selection,
@@ -55,10 +54,30 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         cursor.close();
         db.close();
 
+        if (cursorCount > 0){ return true; }
+        return false;
+    }
+
+    public boolean checkifUserExists(String incuser){
+        String[] columns = {user.KEY_ID};
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selection = user.KEY_name + " = ?";
+        String[] selectionArgs = { incuser };
+        Cursor cursor = db.query(user.TABLE,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
         if (cursorCount > 0){
             return true;
         }
         return false;
     }
+
 // TODO: Left join to connect a table to user d to hold information on the user
 }

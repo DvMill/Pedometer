@@ -49,18 +49,20 @@ public class CreatePage extends Activity
     private void initObjects() { databaseHelper = new DatabaseHelper(activity);
     }
     private void pushtoDB() {
-        // TODO: methods to check if the user already exists and to check if passwords meets a certain requirement
-        if(value1.equals(value2))
-        {
-            tempUser.setName(uservalue);
-            tempUser.setPassword(value1);
-            databaseHelper.addUser(tempUser);
-            Toast.makeText(this, "User has been created", Toast.LENGTH_SHORT).show();
-            Intent loginscreen = new Intent(getApplication(), LoginPage.class);
-            startActivity(loginscreen);
-            finish();
-        }
-        else Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+      if(!databaseHelper.checkifUserExists(uservalue)) {
+          if(value1.length()>5) {
+              if (value1.equals(value2)) {
+                  tempUser.setName(uservalue);
+                  tempUser.setPassword(value1);
+                  databaseHelper.addUser(tempUser);
+                  Toast.makeText(this, "User has been created", Toast.LENGTH_SHORT).show();
+                  Intent loginscreen = new Intent(getApplication(), LoginPage.class);
+                  startActivity(loginscreen);
+                  finish();
+              } else Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+          }else Toast.makeText(this, "Password must be more then 5 Characters", Toast.LENGTH_SHORT).show();
+      } else Toast.makeText(this, "Username Exists", Toast.LENGTH_SHORT).show();
     }
+
 
 }

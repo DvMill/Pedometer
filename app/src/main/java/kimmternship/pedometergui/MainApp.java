@@ -37,7 +37,7 @@ public class MainApp extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolbar_logout:
-                Intent loginscreen = new Intent(getApplication(), MainMenu.class);
+                Intent loginscreen = new Intent(getApplication(), LoginPage.class);
                 startActivity(loginscreen);
                 finish();
             case R.id.toolbar_UserDetails:
