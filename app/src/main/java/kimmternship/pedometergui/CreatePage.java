@@ -21,8 +21,7 @@ public class CreatePage extends Activity
     private DatabaseHelper databaseHelper;
     private final Activity activity = CreatePage.this;
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createpage);
         setViews();
@@ -49,12 +48,12 @@ public class CreatePage extends Activity
     private void initObjects() { databaseHelper = new DatabaseHelper(activity);
     }
     private void pushtoDB() {
-      if(!databaseHelper.checkifUserExists(uservalue)) {
-          if(value1.length()>5) {
-              if (value1.equals(value2)) {
+      if(!databaseHelper.checkifUserExists(uservalue)) {//hecks is username exists already
+          if(value1.length()>5) {//ensures password is more then 5 characters
+              if (value1.equals(value2)) {//ensures that password and confirm password matches
                   tempUser.setName(uservalue);
                   tempUser.setPassword(value1);
-                  databaseHelper.addUser(tempUser);
+                  databaseHelper.addUser(tempUser);//pushes a user to database
                   Toast.makeText(this, "User has been created", Toast.LENGTH_SHORT).show();
                   Intent loginscreen = new Intent(getApplication(), LoginPage.class);
                   startActivity(loginscreen);

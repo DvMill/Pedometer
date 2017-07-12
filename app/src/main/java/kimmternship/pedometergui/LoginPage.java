@@ -2,14 +2,11 @@ package kimmternship.pedometergui;
 import android.content.Context;
 import android.content.Intent;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import kimmternship.pedometergui.Perferences.PrefManager;
 import kimmternship.pedometergui.Sql.DatabaseHelper;
 
@@ -35,11 +32,11 @@ public class LoginPage extends Activity {
         buttonactions();
         maketoasts();
     }
-    public  void  AlreadyLogggedIn(){
-        if(!prefManager.isUserLoggedOut()) {
+    public  void  AlreadyLogggedIn(){ // Checks if the user is already logged in to keep session alive.
+        if(!prefManager.isUserLoggedOut()) { //calls the Prefmanager in order to check if a user had logged out or not
         Intent intent = new Intent(getApplicationContext(),MainApp.class);
         intent.putExtra(EXTRA_MESSAGE, prefManager.getUser());
-            startActivity(intent);
+            startActivity(intent);// goes to MainApp if the user is not logged out
             finish();
     }}
     public void init(){ ConfirmLoginBtn= (Button) findViewById(R.id.confirmLogin);
@@ -54,7 +51,7 @@ public class LoginPage extends Activity {
                 startActivity(createscreen);
             }
         });
-    }
+    }//sets all the  defined varaibles
     public void buttonactions() {
 
         ConfirmLoginBtn.setOnClickListener(new View.OnClickListener()
@@ -77,10 +74,10 @@ public class LoginPage extends Activity {
                 else failure.show();}
             }
         });
-    }
+    }//check what happens when the login button is created. Checks the atabase if a user actually exists
     private void maketoasts() {
         failure = Toast.makeText(this, "User or Password does not match", Toast.LENGTH_SHORT);
         badlogin = Toast.makeText(this, "A required Field is empty", Toast.LENGTH_SHORT);
-        showstuff = Toast.makeText(this, prefManager.getUser(), Toast.LENGTH_LONG);
-    }
+
+    } //makes Toasts to display messages
 }
