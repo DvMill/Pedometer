@@ -10,37 +10,38 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import kimmternship.pedometergui.Perferences.PrefManager;
 import kimmternship.pedometergui.Sql.DatabaseHelper;
 
 public class LoginPage extends Activity {
     Button ConfirmLoginBtn;
     String checkUser,checkPassword;
     private DatabaseHelper dbHelper;
+    private PrefManager prefManager= new PrefManager(this);
     private final Activity activity = LoginPage.this;
     TextView incuserTextfield,incpasswordTextfield;
     Context context;
-    Toast failure,badlogin;
-    final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+    Toast failure,badlogin,showstuff;
     public static final String EXTRA_MESSAGE = "kimmternship.pedometergui.Username";
-    Boolean Registered = sharedPref.getBoolean("Registered", false);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
-        UserLoggedIn();
+        AlreadyLogggedIn();
         init();
         buttonactions();
         maketoasts();
     }
-    public void UserLoggedIn() {
-        if (Registered) {
-            Intent intent = new Intent(getApplicationContext(),MainApp.class);
-            intent.putExtra(EXTRA_MESSAGE, checkUser);
+    public  void  AlreadyLogggedIn(){
+        if(!prefManager.isUserLoggedOut()) {
+        Intent intent = new Intent(getApplicationContext(),MainApp.class);
+        intent.putExtra(EXTRA_MESSAGE, prefManager.getUser());
             startActivity(intent);
             finish();
-        }
-    }
+    }}
     public void init(){ ConfirmLoginBtn= (Button) findViewById(R.id.confirmLogin);
         incuserTextfield= (TextView) findViewById(R.id.loginusernameField);
         incpasswordTextfield= (TextView) findViewById(R.id.loginpasswordField);
@@ -54,7 +55,6 @@ public class LoginPage extends Activity {
             }
         });
     }
-
     public void buttonactions() {
 
         ConfirmLoginBtn.setOnClickListener(new View.OnClickListener()
@@ -69,6 +69,8 @@ public class LoginPage extends Activity {
                 {
                     Intent intent = new Intent(getApplicationContext(),MainApp.class);
                     intent.putExtra(EXTRA_MESSAGE, checkUser);
+                    prefManager.saveLoginDetails(checkUser,checkPassword);
+                    showstuff.show();
                     startActivity(intent);
                     finish();
                 }
@@ -79,5 +81,6 @@ public class LoginPage extends Activity {
     private void maketoasts() {
         failure = Toast.makeText(this, "User or Password does not match", Toast.LENGTH_SHORT);
         badlogin = Toast.makeText(this, "A required Field is empty", Toast.LENGTH_SHORT);
+        showstuff = Toast.makeText(this, prefManager.getUser(), Toast.LENGTH_LONG);
     }
 }

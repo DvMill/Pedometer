@@ -10,16 +10,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import kimmternship.pedometergui.Perferences.PrefManager;
+
 public class MainApp extends AppCompatActivity {
 
+    private PrefManager prefManager= new PrefManager(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainapplayout);
         getusernamefromLogin();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
     }
 
@@ -38,8 +39,10 @@ public class MainApp extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.toolbar_logout:
                 Intent loginscreen = new Intent(getApplication(), LoginPage.class);
+                prefManager.blankusr();
                 startActivity(loginscreen);
                 finish();
+
             case R.id.toolbar_UserDetails:
 
             default:
