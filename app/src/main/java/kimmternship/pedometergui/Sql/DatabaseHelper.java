@@ -58,7 +58,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         return false;
     }
 
-    public boolean checkifUserExists(String incuser){ //checs to see if when trying to create a user if username already exists
+    public boolean checkifUserExists(String incuser){ //checs to see if when trying to create a user if username already ex ists
         String[] columns = {user.KEY_ID};
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = user.KEY_name + " = ?";

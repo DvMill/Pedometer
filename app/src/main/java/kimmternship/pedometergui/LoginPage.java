@@ -67,7 +67,6 @@ public class LoginPage extends Activity {
                     Intent intent = new Intent(getApplicationContext(),MainApp.class);
                     intent.putExtra(EXTRA_MESSAGE, checkUser);
                     prefManager.saveLoginDetails(checkUser,checkPassword);
-                    showstuff.show();
                     startActivity(intent);
                     finish();
                 }
