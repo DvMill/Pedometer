@@ -9,16 +9,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import kimmternship.pedometergui.Perferences.PrefManager;
 import kimmternship.pedometergui.Sql.DatabaseHelper;
+import kimmternship.pedometergui.model.user;
 
 public class LoginPage extends Activity {
+    user User;
     Button ConfirmLoginBtn;
     String checkUser,checkPassword;
     private DatabaseHelper dbHelper;
     private PrefManager prefManager= new PrefManager(this);
     private final Activity activity = LoginPage.this;
     TextView incuserTextfield,incpasswordTextfield;
-    Context context;
-    Toast failure,badlogin,showstuff;
+    Toast failure,badlogin;
     public static final String EXTRA_MESSAGE = "kimmternship.pedometergui.Username";
 
 

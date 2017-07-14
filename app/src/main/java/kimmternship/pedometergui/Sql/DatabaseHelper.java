@@ -19,8 +19,14 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
                 + user.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + user.KEY_name + " TEXT, "
                 + user.KEY_password + " TEXT )";
-
         db.execSQL(CREATE_TABLE_USERS);
+
+        String CREATE_TABLE_USERSDETAILS = "CREATE TABLE " + user.TABLE  + "("
+                + user.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+               // + user.statistics.KEY_USER_GENDER + " TEXT, "
+                + user.KEY_password + " TEXT )";
+
+       // db.execSQL(CREATE_TABLE_USERSDETAILS);
 
     }
 
@@ -78,6 +84,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         }
         return false;
     }
+
+
 
 // TODO: Left join to connect a table to user d to hold information on the user
 }

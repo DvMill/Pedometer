@@ -44,6 +44,8 @@ public class MainApp extends AppCompatActivity {
                 finish();
 
             case R.id.toolbar_UserDetails:
+                Intent userdetailscreen = new Intent(getApplication(), UserDetailsPage.class);
+                startActivity(userdetailscreen);
 
             default:
                 return super.onOptionsItemSelected(item);

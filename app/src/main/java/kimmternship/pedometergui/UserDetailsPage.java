@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import kimmternship.pedometergui.model.user;
 
 public class UserDetailsPage extends Activity {
-    char SexofUser;
+    String GenderofUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +27,12 @@ public class UserDetailsPage extends Activity {
         switch(view.getId()) {
             case R.id.IsFemale:
                 if (checked)
-                    SexofUser='F';
+                    GenderofUser="Male";
+
                     break;
             case R.id.IsMale:
                 if (checked)
-                    SexofUser='M';
+                    GenderofUser="Female";
                     break;
         }
     }
