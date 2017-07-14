@@ -61,6 +61,7 @@ public class LoginPage extends Activity {
             {
                 checkUser =incuserTextfield.getText().toString();
                 checkPassword =incpasswordTextfield.getText().toString();
+                User.setName(checkUser);
                 if(checkUser.isEmpty()||checkPassword.isEmpty()) badlogin.show();
                 else{
                 if (dbHelper.checkifExists(checkUser,checkPassword))
