@@ -1,23 +1,24 @@
 package kimmternship.pedometergui.model;
 
 
-public class user {
+import java.io.Serializable;
+
+public class user implements Serializable {
         public static final String TABLE = "User";
         //Table Columns names
         public static String KEY_ID = "userid";
         public static String KEY_name = "username";
         public static String KEY_password = "password";
 
-        private static int userid;
+        private static  int userid;
         private  String username;
         private  String password;
         private  statistics Stats;
 
 
     public user(String uname,String pass){} //Default constructor
-    public static int getId(){return userid;}
-
-    public static void setUserid(int userid) {user.userid = userid;}
+    public static  int getId(){return userid;}
+    public static void setUserid(int incuserid) {userid = incuserid;}
 
     public  String getName(){return username;}
     public void setName(String incname){

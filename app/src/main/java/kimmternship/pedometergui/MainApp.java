@@ -1,9 +1,9 @@
 package kimmternship.pedometergui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,10 +11,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import kimmternship.pedometergui.Perferences.PrefManager;
+import kimmternship.pedometergui.Sql.DatabaseHelper;
+import kimmternship.pedometergui.model.user;
 
 public class MainApp extends AppCompatActivity {
+    user User = new user("", "");
+    private DatabaseHelper dbHelper;
+    private PrefManager prefManager = new PrefManager(this);
 
-    private PrefManager prefManager= new PrefManager(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +32,12 @@ public class MainApp extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-     public void getusernamefromLogin() { Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginPage.EXTRA_MESSAGE);
+
+    public void getusernamefromLogin() {
+        SharedPreferences settings = getSharedPreferences("userid",0);
+        int tempid = settings.getInt("userid",0);
         TextView textView = (TextView) findViewById(R.id.mainlayoutUsernameDisplay);
-        textView.setText("Welcome "+message);
+        textView.setText("Welcome "+tempid);
     }
 
 
@@ -42,20 +48,20 @@ public class MainApp extends AppCompatActivity {
                 prefManager.blankusr();
                 startActivity(loginscreen);
                 finish();
-
+                break;
             case R.id.toolbar_UserDetails:
                 Intent userdetailscreen = new Intent(getApplication(), UserDetailsPage.class);
                 startActivity(userdetailscreen);
-
+                break;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
+        return super.onOptionsItemSelected(item);
     }
+}
 
     // TODO: Check if a user has information stored on a seperate database. Connect the databases using a left join
-    
+
     // TODO: Work on and design features for app  using the mainapplayout.xml
 
-    
-}
+

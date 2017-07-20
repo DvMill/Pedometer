@@ -22,10 +22,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_USERS);
 
         String CREATE_TABLE_USERSDETAILS = "CREATE TABLE " + user.TABLE  + "("
-                + user.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-               // + user.statistics.KEY_USER_GENDER + " TEXT, "
-                + user.KEY_password + " TEXT )";
-
+                + user.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,";
+               // + user.statistics.KEY_USER_GENDER + " TEXT, ";
        // db.execSQL(CREATE_TABLE_USERSDETAILS);
 
     }
@@ -60,8 +58,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         cursor.close();
         db.close();
 
-        if (cursorCount > 0){ return true; }
-        return false;
+        return cursorCount > 0;
     }
 
     public boolean checkifUserExists(String incuser){ //checs to see if when trying to create a user if username already ex ists
@@ -79,13 +76,26 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         int cursorCount = cursor.getCount();
         cursor.close();
         db.close();
-        if (cursorCount > 0){
-            return true;
-        }
-        return false;
+        return cursorCount > 0;
     }
 
-
+    public String getCurrentUser(int incUserID) {
+        String[] columns = {user.KEY_ID};
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selection = user.KEY_name + " = ?";
+        String[] selectionArgs = {String.valueOf(incUserID)};
+        Cursor cursor = db.query(user.TABLE,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+        String loggedinuser = cursor.getString( cursor.getColumnIndex("username") );
+        cursor.close();
+        db.close();
+        return loggedinuser;
+    }
 
 // TODO: Left join to connect a table to user d to hold information on the user
 }

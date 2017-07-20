@@ -2,25 +2,25 @@ package kimmternship.pedometergui.Perferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class PrefManager {
+import kimmternship.pedometergui.model.user;
 
+public class PrefManager {
+ user CurrentUser=new user("","");
     private Context context;
 
    public PrefManager(Context context) {this.context = context;}
 
-    public void saveLoginDetails(String username, String password) {
+    public void saveLoginDetails(user incUser) {
+        CurrentUser=incUser;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Username", username);
-        editor.putString("Password", password);
+        editor.putInt("UserID", CurrentUser.getId());
         editor.apply();
     }
 
 
-    public String getUser() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("Username",null);
-    }
+    public user getUser() {return CurrentUser;}
+
     public void  blankusr() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -30,7 +30,6 @@ public class PrefManager {
 
     public boolean isUserLoggedOut() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        boolean isUserEmpty = sharedPreferences.getString("Username","").isEmpty();
-        return isUserEmpty;
+        return sharedPreferences.getString("Username","").isEmpty();
     }
 }

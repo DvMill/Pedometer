@@ -28,7 +28,6 @@ public class UserDetailsPage extends Activity {
             case R.id.IsFemale:
                 if (checked)
                     GenderofUser="Male";
-
                     break;
             case R.id.IsMale:
                 if (checked)
