@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import kimmternship.pedometergui.model.user;
 
+
 public class DatabaseHelper  extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "PedometerUserManager.db"; //names the database
     private static final int DATABASE_VERSION = 1;
@@ -18,15 +19,11 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         String CREATE_TABLE_USERS = "CREATE TABLE " + user.TABLE  + "("
                 + user.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + user.KEY_name + " TEXT, "
-                + user.KEY_password + " TEXT )";
+                + user.KEY_password + " TEXT, "
+                + user.KEY_gender + " TEXT, "
+                + user.KEY_feet + " INTEGER, "
+                + user.KEY_inches + " INTEGER,  )";
         db.execSQL(CREATE_TABLE_USERS);
-
-        String CREATE_TABLE_USERSDETAILS = "CREATE TABLE " + user.TABLE  + "("
-                + user.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-               // + user.statistics.KEY_USER_GENDER + " TEXT, "
-                + user.KEY_password + " TEXT )";
-
-       // db.execSQL(CREATE_TABLE_USERSDETAILS);
 
     }
 
@@ -41,6 +38,9 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(user.KEY_name,incUser.getName());//puts the username into the databse
         values.put(user.KEY_password,incUser.getPassword());//puts password into the database
+        values.put(user.KEY_gender,incUser.getGender());
+        values.put(user.KEY_password,incUser.getFeet());
+        values.put(user.KEY_password,incUser.getInches());
         long userid = db.insert(user.TABLE, null, values);//places them under a certain Userid
         db.close();
     }
@@ -86,6 +86,4 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
     }
 
 
-
-// TODO: Left join to connect a table to user d to hold information on the user
 }
